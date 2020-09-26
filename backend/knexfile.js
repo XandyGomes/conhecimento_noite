@@ -1,10 +1,8 @@
+const { db } = require('./.env')
+
 module.exports = {
   client: 'postgresql',
-  connection: {
-    database: 'conhecimento_noite',
-    user:     'postgres',
-    password: '123456'
-  },
+  connection: db,
   pool: {
     min: 2,
     max: 10
