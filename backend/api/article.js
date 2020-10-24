@@ -64,7 +64,7 @@ module.exports = app => {
 
         app.db('articles')
             .where({ id: req.params.id })
-            .first()
+            .first() 
             .then(article => {
                 article.content = article.content.toString()
                 return res.json(article)
