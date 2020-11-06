@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-      <a class="toogle" @click="toggleMenu" v-if="!hideToggle">
+      <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
             <i class="fa fa-lg" :class="icon"> </i>
       </a>
       <h1 class="title">
@@ -45,5 +45,23 @@ export default {
         flex-grow: 1;
         text-align: center;
     }
-    
+    .title a {
+    color: #fff;
+    text-decoration: none;
+    }
+    header.header > a.toggle {
+        width: 60px;
+        height: 100%;
+        color: #fff;
+        justify-self: flex-start;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    header.header > a.toggle:hover {
+        color:#fff;
+        background-color: rgba(0,0,0,0.2);
+    }
+
 </style>
