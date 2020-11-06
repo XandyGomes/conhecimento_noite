@@ -1,7 +1,7 @@
 <template>
   <header class="header">
-      <a class="toogle">
-            <i class="fa fa-lg" > </i>
+      <a class="toogle" @click="toggleMenu" v-if="!hideToggle">
+            <i class="fa fa-lg" :class="icon"> </i>
       </a>
       <h1 class="title">
           {{ title }}
@@ -16,8 +16,16 @@ export default {
     props: {
         title: String,
         hideToggle: Boolean
+    },
+    computed: {
+        icon() {
+            return "fa-angle-left"
+        }
+    },
+    methods: {
+        toggleMenu() {
+        }
     }
-    
 
 }
 </script>
