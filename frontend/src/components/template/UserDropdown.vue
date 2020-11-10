@@ -43,6 +43,9 @@ export default {
     .user-dropdown:hover {
         background-color: rgba(0,0,0,0.2);
     }
+    .user-dropdown-img {
+        margin: 0px 10px;
+    }
     .user-dropdown-img > img {
         max-height: 37px;
         border-radius: 5px;
@@ -77,6 +80,5 @@ export default {
         color: #000;
         background-color: #ededed;
     }
-
 
 </style>
