@@ -1,6 +1,6 @@
 <template>
   <div class="user-admin">
-    <h1>Teste de Usuário Componente</h1>
+    <b-table hover striped :items="users" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -13,7 +13,14 @@ export default {
   data: function(){
     return{
       user: {},
-      users: []
+      users: [],
+      fields: [
+        { key: 'id', label: 'Código', sortable:true },
+        { key: 'email', label: 'E-mail', sortable:true },
+        { key: 'admin', label: 'Administrador', sortable:true,
+           formatter: value=> value ? 'Sim' : 'Não' },
+        { key: 'actions', label: 'Ações'}
+      ]
     }
   },
 
@@ -25,7 +32,7 @@ export default {
       })
     }
   },
-  
+
   mounted() {
     this.loadUsers()
   }
