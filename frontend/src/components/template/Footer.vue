@@ -1,12 +1,12 @@
 <template>
-  <footer class="footer">
-      <span>Desenvolvido <strong>5º ADS FATEC Noturno</strong>© 2020</span>
-  </footer>
+    <footer class="footer">
+        <span>Copyright <strong>Aluno</strong> © 2019</span>
+    </footer>
 </template>
 
 <script>
 export default {
-    name: 'Footer'
+    name: "Footer"
 }
 </script>
 
@@ -15,6 +15,7 @@ export default {
         grid-area: footer;
         background-color: #DDD;
         color: #333;
+
         display: flex;
         align-items: center;
         justify-content: flex-end;

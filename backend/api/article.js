@@ -11,11 +11,12 @@ module.exports = app => {
             existsOrError(article.name, 'Nome não informado')
             existsOrError(article.description, 'Descrição não informada')
             existsOrError(article.categoryId, 'Categoria não informada')
-            existsOrError(article.userId, 'Autor não informada')
-            existsOrError(article.content, 'Conteúdo não informada')
+            existsOrError(article.userId, 'Autor não informado')
+            existsOrError(article.content, 'Conteúdo não informado')
         } catch(msg) {
             res.status(400).send(msg)
         }
+
         if(article.id) {
             app.db('articles')
                 .update(article)
@@ -34,22 +35,23 @@ module.exports = app => {
         try {
             const rowsDeleted = await app.db('articles')
                 .where({ id: req.params.id }).del()
+            
             try {
-                existsOrError(rowsDeleted, 'Artigo não foi encontrado')
+                existsOrError(rowsDeleted, 'Artigo não foi encontrado.')
             } catch(msg) {
-                return res.status(400).send(msg)
+                return res.status(400).send(msg)    
             }
-            res.status(204).send()
 
+            res.status(204).send()
         } catch(msg) {
             res.status(500).send(msg)
         }
     }
 
-    const limit = 10
-
+    const limit = 10 // usado para paginação
     const get = async (req, res) => {
         const page = req.query.page || 1
+
         const result = await app.db('articles').count('id').first()
         const count = parseInt(result.count)
 
@@ -61,15 +63,14 @@ module.exports = app => {
     }
 
     const getById = (req, res) => {
-
         app.db('articles')
             .where({ id: req.params.id })
-            .first() 
+            .first()
             .then(article => {
                 article.content = article.content.toString()
                 return res.json(article)
             })
-            .catch( err => res.status(500).send(err))
+            .catch(err => res.status(500).send(err))
     }
 
     const getByCategory = async (req, res) => {
@@ -78,16 +79,15 @@ module.exports = app => {
         const categories = await app.db.raw(queries.categoryWithChildren, categoryId)
         const ids = categories.rows.map(c => c.id)
 
-        app.db({a: 'articles', u: 'users' })
-            .select('a.id', 'a.name', 'a.description', 'a.imageUrl', {author: 'u.name'})
+        app.db({a: 'articles', u: 'users'})
+            .select('a.id', 'a.name', 'a.description', 'a.imageUrl', { author: 'u.name' })
             .limit(limit).offset(page * limit - limit)
             .whereRaw('?? = ??', ['u.id', 'a.userId'])
             .whereIn('categoryId', ids)
             .orderBy('a.id', 'desc')
             .then(articles => res.json(articles))
             .catch(err => res.status(500).send(err))
-    }    
+    }
 
     return { save, remove, get, getById, getByCategory }
-
 }
